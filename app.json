@@ -1,27 +1,46 @@
 {
   "expo": {
-    "name": "rapidrescue",
+    "name": "RapidRescue",
     "slug": "rapidrescue",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#001A24"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "bundleIdentifier": "com.rapidrescue.app",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "RapidRescue uses your location to show nearby shelters and share your position during emergencies.",
+        "NSLocationAlwaysUsageDescription": "RapidRescue uses your location for emergency SOS broadcasts.",
+        "NSBluetoothAlwaysUsageDescription": "RapidRescue uses Bluetooth to communicate with nearby devices during disasters.",
+        "NSCameraUsageDescription": "RapidRescue uses the camera to upload danger zone photos."
+      }
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png"
+        "backgroundColor": "#001A24"
       },
-      "predictiveBackGestureEnabled": false
+      "package": "com.rapidrescue.app",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "BLUETOOTH",
+        "BLUETOOTH_ADMIN",
+        "BLUETOOTH_SCAN",
+        "BLUETOOTH_CONNECT",
+        "BLUETOOTH_ADVERTISE",
+        "VIBRATE",
+        "CAMERA",
+        "INTERNET",
+        "ACCESS_NETWORK_STATE",
+        "ACCESS_WIFI_STATE"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
