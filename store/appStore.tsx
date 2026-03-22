@@ -23,6 +23,8 @@ interface AppState {
   setCurrentLang: (v: string) => void;
   isOnline: boolean;
   setIsOnline: (v: boolean) => void;
+  isLoading: boolean;
+  setIsLoading: (v: boolean) => void;
   settings: Settings;
   toggleSetting: (key: keyof Settings) => void;
   selectedContact: string;
@@ -37,6 +39,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [email, setEmail] = useState('');
   const [currentLang, setCurrentLang] = useState('EN');
   const [isOnline, setIsOnline] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedContact, setSelectedContact] = useState('');
   const [settings, setSettings] = useState<Settings>({
     notifications: true,
@@ -61,6 +64,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
       email, setEmail,
       currentLang, setCurrentLang,
       isOnline, setIsOnline,
+      isLoading, setIsLoading,
       settings, toggleSetting,
       selectedContact, setSelectedContact,
     }}>

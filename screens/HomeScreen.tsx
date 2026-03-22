@@ -8,6 +8,8 @@ import {
   Modal,
   FlatList,
   SafeAreaView,
+  Platform,
+  StatusBar,
 } from 'react-native';
 import { User, Wifi, Globe, ChevronDown, CheckCircle, AlertTriangle, Waves } from 'lucide-react-native';
 import { COLORS, LANGUAGES } from '../constants/theme';
@@ -165,6 +167,7 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
     backgroundColor: COLORS.surfaceDeep,
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
   header: {
     flexDirection: 'row',

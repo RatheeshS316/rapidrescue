@@ -6,8 +6,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MessageSquare, Map as MapIcon, Tent, Bot, Shield, Home } from 'lucide-react-native';
 
-import { AppProvider } from './store/appStore';
+import { AppProvider, useAppStore } from './store/appStore';
 import { COLORS } from './constants/theme';
+import LoadingScreen from './components/LoadingScreen';
 
 // Screens
 import HomeScreen from './screens/HomeScreen';
@@ -24,6 +25,7 @@ import LocationShareScreen from './screens/LocationShareScreen';
 import SendMessageScreen from './screens/SendMessageScreen';
 import DangerZonesScreen from './screens/DangerZonesScreen';
 import MapViewScreen from './screens/MapViewScreen';
+import DisasterDetailsScreen from './screens/DisasterDetailsScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -70,6 +72,7 @@ function ZonesStack() {
     <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Screen name="ZonesMain" component={ZonesScreen} options={{ title: 'Predictions' }} />
       <Stack.Screen name="DangerZones" component={DangerZonesScreen} options={{ title: 'Danger Zones' }} />
+      <Stack.Screen name="DisasterDetails" component={DisasterDetailsScreen} options={{ title: 'Alert Details', headerStyle: { backgroundColor: COLORS.background }, headerTintColor: COLORS.textPrimary }} />
       <Stack.Screen name="SendMessage" component={SendMessageScreen} options={{ title: 'Message Status' }} />
     </Stack.Navigator>
   );
@@ -158,13 +161,33 @@ function MainTabs() {
   );
 }
 
+function AppContent() {
+  const { isLoading, setIsLoading } = useAppStore();
+
+  return (
+    <>
+      <StatusBar barStyle="light-content" backgroundColor={COLORS.surfaceDeep} />
+      <NavigationContainer
+        onStateChange={() => {
+          // Trigger loading screen on page transitions
+          setIsLoading(true);
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 600);
+        }}
+      >
+        <MainTabs />
+      </NavigationContainer>
+      
+      {isLoading && <LoadingScreen />}
+    </>
+  );
+}
+
 export default function App() {
   return (
     <AppProvider>
-      <StatusBar barStyle="light-content" backgroundColor={COLORS.surfaceDeep} />
-      <NavigationContainer>
-        <MainTabs />
-      </NavigationContainer>
+      <AppContent />
     </AppProvider>
   );
 }
